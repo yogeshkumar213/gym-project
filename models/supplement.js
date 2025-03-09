@@ -29,10 +29,10 @@ const supplementSch = mongoose.Schema({
            
         }
     },
-    Time: {
+    // Time: {
 
         StartDate: {
-            type: String,
+            type: Date,
             required: true,
             // min: [0, 'Hours cannot be less than 0'],
             // max: [23, 'Hours cannot be more than 23']
@@ -47,16 +47,16 @@ const supplementSch = mongoose.Schema({
 
             // min: [0, 'Seconds cannot be less than 0'],
             // max: [59, 'Seconds cannot be more than 59']
-        }
+        // }
     },
-    Intake: {
+    // Intake: {
         Amount: {
             type: Number, required: true
         },
         Daily: {
             type: Number, required: true
-        }
-    },
+        },
+    // },
     company: {
         type: String, required: true
     },

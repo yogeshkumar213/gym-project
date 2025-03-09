@@ -27,160 +27,149 @@ main().catch((err) => {
     console.log(err);
 })
 app.post("/workout", async (req, res) => {
-    try{
+    try {
 
-    
-    let { category, Excercise, Sets, Time, Reps, Weights } = req.body
-    // console.log(`${Time.hours} ${Excercise} ${Time} ${Reps} ${Weights}`);
-    let addData = new Workout(
-        {
-            category: category,
-            Excercise: Excercise,
-            Sets: Sets,
-            Time: {
-                hours: Time.hours,
-                seconds: Time.seconds
-            },
-            Reps: Reps,
-            Weights: Weights
-        }
-    )
-    let result = await Workout.insertMany([addData]);
-    console.log(result);
-    res.send({ "added": "successfully" })
-}catch(err){
-    res.send({"err":err._message})
-}
+
+        let { category, Excercise, Sets, Time, Reps, Weights } = req.body
+        // console.log(`${Time.hours} ${Excercise} ${Time} ${Reps} ${Weights}`);
+        let addData = new Workout(
+            {
+                category: category,
+                Excercise: Excercise,
+                Sets: Sets,
+                Time: Time,
+                Reps: Reps,
+                Weights: Weights
+            }
+        )
+        let result = await Workout.insertMany([addData]);
+        console.log(result);
+        res.send({ "added": "successfully" })
+    } catch (err) {
+        console.log(err);
+
+        res.send({ "err": err._message })
+    }
 });
 
 
 
 app.post("/recovery", async (req, res) => {
-    try{
+    try {
 
-    
-    let { category, Excercise, Time, timeDuration } = req.body
-    // console.log(`${Time.hours} ${Excercise} ${Time} ${Reps} ${Weights}`);
-    let addData = new Recovery(
-        {
-            category: category,
-            Excercise: Excercise,
 
-            Time: {
-                hours: Time.hours,
-                seconds: Time.seconds
-            },
-            timeDuration: {
-                time: timeDuration.time,
-                Intensity: timeDuration.Intensity,
-                Rounds: timeDuration.Rounds
+        let { category, Excercise, currTime, time, Intensity, Rounds } = req.body;
+        // console.log(`${Time.hours} ${Excercise} ${Time} ${Reps} ${Weights}`);
+        console.log(req.body);
+        let addData = new Recovery(
+            {
+                category: category,
+                Excercise: Excercise,
+
+                Time: currTime,
+
+                time: time,
+                Intensity: Intensity,
+                Rounds: Rounds
+
+
             }
-
-        }
-    )
-    let result = await Recovery.insertMany([addData]);
-    console.log(result);
-    res.send({ "added": "successfully" })
-}catch(err){
-    res.send({"err":err._message});
-}
+        )
+        let result = await Recovery.insertMany([addData]);
+        console.log(result);
+        res.send({ "added": "successfully" })
+    } catch (err) {
+        res.send({ "err": err._message });
+    }
 });
 
 
 
 app.post("/cardio", async (req, res) => {
-    try{
-    let { category, Excercise, Time, timeDuration } = req.body
+    try {
+        let { category, Excercise, Time, time, Speed, Incline } = req.body
 
-    console.log(`${category} ${Excercise} ${Time} ${timeDuration} `);
-    let addData = new Cardio({
-        Category: category,
-        Excercise: Excercise,
-        Time: {
-            hours: Time.hours,
-            seconds: Time.seconds
-        },
-        timeDuration: {
-            time: timeDuration.time,
-            Speed: timeDuration.Speed,
-            Incline: timeDuration.Incline
+        // console.log(`${category} ${Excercise} ${Time} ${time} ${Speed},${Incline} `);
+        let addData = new Cardio({
+            Category: category,
+            Excercise: Excercise,
+            Time: Time,
+            // timeDuration: {
+            time: time,
+            Speed: Speed,
+            Incline: Incline
+            // }
+
         }
-
+        )
+        let result = await Cardio.insertMany([addData]);
+        console.log(result);
+        res.send({ "added": "successfully" });
+    } catch (err) {
+        res.send({ "err": err._message })
     }
-    )
-    let result = await Cardio.insertMany([addData]);
-    console.log(result);
-    res.send({ "added": "successfully" });
-}catch(err){
-    res.send({"err":err._message})
-}
 });
 
 
 app.post("/supplement", async (req, res) => {
-    try{
+    try {
+        let { category, supplement, StartDate,Type, Amount,Daily,company,Source} = req.body
 
-    
-    let { category, supplement, Time, Intake, company, Source } = req.body
+        console.log(`${category} ${supplement} ${StartDate},${Type},${Amount},${Daily},${company},${Source} `);
+        let addData = new Supplement({
+            category: category,
+            supplement: supplement,
+            // Time: {
+                StartDate:StartDate,
+                Type:Type,
+            // },
+            // Intake: {
+                Amount: Amount,
+                Daily: Daily,
+            // },
+            company: company,
+            Source: Source
 
-    console.log(`${category} ${supplement} ${Time} ${Intake},${company},${Source} `);
-    let addData = new Supplement({
-        category: category,
-        supplement: supplement,
-        Time: {
-            StartDate: Time.StartDate,
-            Type: Time.Type
-        },
-        Intake: {
-            Amount: Intake.Amount,
-            Daily: Intake.Daily
-        },
-        company: company,
-        Source: Source
-
+        })
+        let result = await Supplement.insertMany([addData]);
+        console.log(result);
+        res.send({ "added": "successfully" });
+    } catch (err) {
+        res.send({ "err": err._message })
     }
-    )
-    let result = await Supplement.insertMany([addData]);
-    console.log(result);
-    res.send({ "added": "successfully" });
-}catch(err){
-    res.send({"err":err._message})
-}
 });
 
 app.delete("/workout", async (req, res) => {
-    try{
-
-  
-    let data = req.body;
-    console.log(data);
-    let Workoutdel = await Workout.deleteOne({ category: req.body.category })
-    console.log(Workoutdel)
-    res.send({ "delete": "successfully" });
-    }catch(err){
-        console.log({"err":err})
+    try {
+        let id = req.body._id;
+        console.log(id);
+        let Workoutdel = await Workout.deleteOne({ _id: id })
+        console.log(Workoutdel)
+        res.send({ "delete": "successfully" });
+    } catch (err) {
+        console.log({ "err": err })
     }
 });
 
 app.delete("/recovery", async (req, res) => {
-    let data = req.body;
-    console.log(data);
-    let recoverydel = await Recovery.deleteOne({ Excercise: req.body.Excercise })
+    let id = req.body._id;
+    console.log(id);
+    let recoverydel = await Recovery.deleteOne({ _id: id })
     console.log(recoverydel)
     res.send({ "delete": "successfully" });
 })
 
 app.delete("/cardio", async (req, res) => {
-    let data = req.body;
-    console.log(data);
-    let cardiodel = await Cardio.deleteOne({ Category: req.body.Category })
+    let id = req.body._id;
+    console.log(id);
+    let cardiodel = await Cardio.deleteOne({ _id: id })
     console.log(cardiodel);
     res.send({ "delete": "successfully" });
 })
 app.delete("/supplement", async (req, res) => {
-    let data = req.body;
-    console.log(data);
-    let supplementdel = await Supplement.deleteOne({ category: req.body.category })
+    let id = req.body._id;
+    console.log(id);
+    let supplementdel = await Supplement.deleteOne({ _id: id })
     console.log(supplementdel);
     res.send({ "delete": "successfully" });
 })
@@ -189,7 +178,7 @@ app.get("/workout", async (req, res) => {
     // console.log(data);
     let allworkoutdata = await Workout.find({})
     console.log(allworkoutdata)
-    res.send({ "datasend": "successfully" });
+    res.send({ "datasend": "successfully", "data":  allworkoutdata });
 });
 
 app.get("/cardio", async (req, res) => {

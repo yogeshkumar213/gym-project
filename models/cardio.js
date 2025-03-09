@@ -29,25 +29,25 @@ const cardioSch = mongoose.Schema({
             validator: function (Excercise) {
                 return categoryExcercise[this.Category]?.includes(Excercise)
             },
-                message: "Exercise must be one of the predifined values"
+            message: "Exercise must be one of the predifined values"
         }
     },
     Time: {
-
-        hours: {
-            type: String,
-            required: true,
-            min: [0, 'Hours cannot be less than 0'],
-            max: [23, 'Hours cannot be more than 23']
-        },
-        seconds: {
-            type: Number,
-            required: true,
-            min: [0, 'Seconds cannot be less than 0'],
-            max: [59, 'Seconds cannot be more than 59']
-        }
+        type: Date, required: true
+        // hours: {
+        //     type: String,
+        //     required: true,
+        //     min: [0, 'Hours cannot be less than 0'],
+        //     max: [23, 'Hours cannot be more than 23']
+        // },
+        // seconds: {
+        //     type: Number,
+        //     required: true,
+        //     min: [0, 'Seconds cannot be less than 0'],
+        //     max: [59, 'Seconds cannot be more than 59']
+        // }
     },
-    timeDuration: {
+    // timeDuration: {
         time: {
             type: Number, required: true
         },
@@ -57,7 +57,7 @@ const cardioSch = mongoose.Schema({
         Incline: {
             type: Number, required: true,
         }
-    }
+    // }
 })
 const Cardio = mongoose.model("Cardio", cardioSch);
-module.exports=Cardio;
+module.exports = Cardio;

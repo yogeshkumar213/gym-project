@@ -1,3 +1,4 @@
+const { time } = require("console");
 const mongoose = require("mongoose");
 // const Recovery = require("./recovery");
 // const Cardio = require("./cardio");
@@ -75,28 +76,40 @@ const workoutSch = {
         type: Number, required: true,
         min: [1, "choose atleast one set"],
         max: 5
+        
 
     },
     Time: {
+        type:Date,
+        required:true,
 
-        hours: {
-            type: String,
-            required: true,
-            // min: [0, 'Hours cannot be less than 0'],
-            // max: [23, 'Hours cannot be more than 23']
-        },
-        seconds: {
-            type: Number,
-            required: true,
-            min: [0, 'Seconds cannot be less than 0'],
-            max: [59, 'Seconds cannot be more than 59']
-        }
+        // hours: {
+        //     type: String,
+        //     required: true,
+        //     // min: [0, 'Hours cannot be less than 0'],
+        //     // max: [23, 'Hours cannot be more than 23']
+        // },
+        // seconds: {
+        //     type: Number,
+        //     required: true,
+        //     min: [0, 'Seconds cannot be less than 0'],
+        //     max: [59, 'Seconds cannot be more than 59']
+        // }
 
     },
     Reps: {
-        type: Number, required: true,
-        min: [1, "select atleat 1 reps"],
-        max: [12]
+      type:[Number],
+      required:true,
+      validate:{
+        validator:function(value){
+            return value.length==this.Sets
+        },
+        message:"reps count must match the number of the sets"
+      }
+    
+
+        // min: [1, "select atleat 1 reps"],
+        // max: [12]
     },
     Weights: {
         type: Number, required: true,

@@ -33,26 +33,28 @@ const recoverySch = {
         //     
         // }
     }, Time: {
+        type:Date,
+        required:true
 
-        hours: {
-            type: String,
-            required: true,
-            // min: [0, 'Hours cannot be less than 0'],
-            // max: [23, 'Hours cannot be more than 23']
-        },
-        seconds: {
-            type: Number,
-            required: true,
-            min: [0, 'Seconds cannot be less than 0'],
-            max: [59, 'Seconds cannot be more than 59']
-        }
+        // hours: {
+        //     type: String,
+        //     required: true,
+        //     // min: [0, 'Hours cannot be less than 0'],
+        //     // max: [23, 'Hours cannot be more than 23']
+        // },
+        // seconds: {
+        //     type: Number,
+        //     required: true,
+        //     min: [0, 'Seconds cannot be less than 0'],
+        //     max: [59, 'Seconds cannot be more than 59']
+        // }
     },
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    },
-    timeDuration: {
+    // date: {
+    //     type: Date,
+    //     required: true,
+    //     default: Date.now
+    // },
+    // timeDuration: {
         time: {
             type: Number, required: true
         },
@@ -66,7 +68,7 @@ const recoverySch = {
             min: 1,
             max: 10
         }
-    }
+    // }
 
 }
 
